@@ -1,10 +1,11 @@
+import React from "react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 
-import Layout from "../components/Layout";
+import Layout from "../components/layout/Layout";
 import PrintObject from "../components/PrintObject";
-import Cart from "../components/Cart";
-import ClearCart from "../components/ClearCart";
+import Cart from "../providers/CartProvider";
+import ClearCart from "../components/cart/ClearCart";
 
 import { fetchGetJSON } from "../utils/api-helpers";
 import useSWR from "swr";

@@ -27,10 +27,10 @@ export default async function handler(
         currency: CURRENCY,
         description: process.env.STRIPE_PAYMENT_DESCRIPTION ?? '',
       }
-      const payment_intent: Stripe.PaymentIntent =
+      const paymentIntent: Stripe.PaymentIntent =
         await stripe.paymentIntents.create(params)
 
-      res.status(200).json(payment_intent)
+      res.status(200).json(paymentIntent)
     } catch (err) {
       res.status(500).json({ statusCode: 500, message: err.message })
     }

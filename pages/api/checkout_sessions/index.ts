@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import { validateCartItems } from "use-shopping-cart/src/serverUtil";
 import inventory from "../../../data/products.json";
-import shippingOptions, { IShipingOption } from "../../../data/shiping-options";
+import shippingOptions from "../../../data/shiping-options";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -18,7 +18,7 @@ export default async function handler(
     try {
       // Validate the cart details that were sent from the client.
       const cartItems = req.body;
-      const line_items = validateCartItems(inventory, cartItems);
+      const lineItems = validateCartItems(inventory, cartItems);
       // Create Checkout Sessions from body params.
       const params: any = {
         submit_type: "pay",
@@ -27,7 +27,7 @@ export default async function handler(
         shipping_address_collection: {
           allowed_countries: ["PL"],
         },
-        line_items,
+        line_items: lineItems,
         shipping_options: [...shippingOptions],
         success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/use-shopping-cart`,
